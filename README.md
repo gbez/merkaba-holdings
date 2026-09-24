@@ -5,7 +5,9 @@ A simple, one-page static website for Merkaba Holdings LLC, written in plain HTM
 ## Files
 
 ```
-index.html        All of the page content (text, sections, contact info)
+index.html        All of the page structure and styling hooks
+content.md        All of the page's TEXT, in an easy-to-edit format
+build.py          Merges content.md into index.html — run after editing content.md
 css/styles.css    All of the styling. Colors and fonts are set at the top.
 js/main.js        Mobile menu and the footer year
 images/           Logo, photos, and other images
@@ -16,21 +18,30 @@ images/           Logo, photos, and other images
 
 Double-click `index.html` to open it in your browser. After you edit a file, save it and refresh the browser.
 
-## Filling in your details
+## Editing the text (the easy way)
 
-Anything in **[square brackets]** in `index.html` is a placeholder to replace. To find them all, search the file for `[` in your editor. The main ones are:
+Every sentence, heading, button label, and list item on the page lives in **`content.md`**, organized under plain-English headings (`Hero`, `About Me`, `Frequently Asked Questions`, and so on) with a short italic note under each one explaining where it appears.
 
-- **About Me:** your name, background, location, and education
-- **Criteria:** revenue and EBITDA ranges, location, and industries
-- **For Brokers:** your response time
-- **Contact:** email, phone, and LinkedIn URL
+1. Open `content.md` in any text editor and change whatever you like.
+2. From a terminal in this folder, run:
+   ```
+   python3 build.py
+   ```
+3. Refresh `index.html` in your browser to see the update.
 
-For the phone link, write the number with digits only: `href="tel:+12025551234"`.
+`content.md` is pre-filled with the site's current text, including every **[square-bracket placeholder]** left to fill in (your name, location, revenue ranges, LinkedIn URL, etc.) — search the file for `[` to find them all.
+
+A couple of things worth knowing:
+
+- **Don't rename the `##`/`###` headings** in `content.md` — that's how `build.py` finds its way back to the right spot in `index.html`. If you do rename one, `build.py` just prints a warning for that one field and leaves everything else working.
+- **Email and phone links are generated for you.** Type the email address or phone number under those headings exactly as you want it displayed, and the script builds the correct `mailto:`/`tel:` link automatically.
+- You can still edit `index.html` directly if you'd rather (it's just HTML) — but if you do, edit the text that sits between the `<!--c:...-->` comment markers, and know that running `build.py` afterward will overwrite it back to whatever `content.md` says. Pick one workflow per session to avoid overwriting your own changes.
 
 ## Adding your photo
 
 1. Put your photo in the `images` folder, for example `images/headshot.jpg`. A portrait (taller than wide) looks best.
-2. In `index.html`, find `headshot-placeholder.svg` and change it to `headshot.jpg`.
+2. In `index.html`, find the `<img>` tag in the About Me section and change its `src` to your new filename.
+3. Its "Photo alt text" (read by screen readers) lives in `content.md` under **About Me**, so it can be edited there like any other text.
 
 ## Changing colors or fonts
 
@@ -67,7 +78,9 @@ Either option is a one-time setup; the site's CSS is already pointed at `"Claren
 
 ## Editing common things
 
-- **Add an FAQ:** copy one `<details>...</details>` block in the FAQ section and change the text.
+Changing the *wording* of an existing FAQ, card, step, or tag is a `content.md` edit (above). Adding, removing, or reordering items is a structural change and still means editing `index.html` directly:
+
+- **Add an FAQ:** copy one `<details>...</details>` block in the FAQ section and change the text. Give it new `<!--c:frequently-asked-questions|question-N:start/end-->` markers (bump N) if you also want to manage it from `content.md` going forward, and add a matching `### Question N` block there.
 - **Add an industry:** add a line like `<li>New Industry</li>` in the `tag-list`.
 - **Remove a section:** delete everything from its opening `<section>` tag to its closing `</section>` tag, and remove its link from the `<nav>`.
 
