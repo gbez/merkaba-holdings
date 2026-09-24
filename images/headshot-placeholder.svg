@@ -1,0 +1,7 @@
+<!-- Placeholder portrait. Replace with your own photo (e.g. images/headshot.jpg) -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500">
+  <rect width="400" height="500" fill="#E4D9C9"/>
+  <circle cx="200" cy="195" r="80" fill="#C9B9A3"/>
+  <path d="M60 500 C60 370 130 310 200 310 C270 310 340 370 340 500 Z" fill="#C9B9A3"/>
+  <text x="200" y="470" text-anchor="middle" font-family="Georgia, serif" font-size="22" fill="#6B6259">Your photo here</text>
+</svg>
