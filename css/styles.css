@@ -5,6 +5,36 @@
    :root below. Every color and font on the page comes from these values.
    ========================================================================== */
 
+/* ==========================================================================
+   Clarendon (self-hosted)
+   --------------------------------------------------------------------------
+   Clarendon is a commercial typeface — it isn't available on Google Fonts,
+   so it can't be linked from a free CDN. Once you own a license and have
+   the font files, drop them in a "fonts" folder next to this stylesheet
+   and uncomment the block below. See the README for where to buy it and
+   exactly which files to add.
+   ========================================================================== */
+
+/*
+@font-face {
+  font-family: "Clarendon";
+  src: url("../fonts/Clarendon-Regular.woff2") format("woff2"),
+       url("../fonts/Clarendon-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Clarendon";
+  src: url("../fonts/Clarendon-Bold.woff2") format("woff2"),
+       url("../fonts/Clarendon-Bold.woff") format("woff");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+*/
+
 :root {
   /* Colors */
   --color-bg:          #FBF7F1;  /* warm cream page background */
@@ -12,14 +42,23 @@
   --color-surface:     #FFFFFF;  /* cards */
   --color-text:        #2E2A25;  /* main text (warm charcoal) */
   --color-text-muted:  #6B6259;  /* secondary text */
-  --color-primary:     #B5573A;  /* terracotta accent (buttons, highlights) */
-  --color-primary-dark:#94452D;  /* terracotta for hover states */
-  --color-secondary:   #3F4E3A;  /* deep olive green (headings, footer) */
+  --color-primary:     #B9466A;  /* magenta accent (buttons, highlights) */
+  --color-primary-rgb: 185, 70, 106;
+  --color-primary-dark:#00133D;  /* deep navy for hover states */
+  --color-secondary:   #001B56;  /* navy (headings, footer) */
+  --color-secondary-rgb: 0, 27, 86;
+  --color-accent:      #B89E65;  /* gold (decorative accents) */
   --color-border:      #E4D9C9;  /* subtle borders */
 
-  /* Fonts */
-  --font-heading: "Fraunces", Georgia, "Times New Roman", serif;
-  --font-body:    "Source Sans 3", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  /* Fonts
+     True "Clarendon" is a commercial font — no browser has it built in, so
+     it needs to be self-hosted (see the @font-face block above and the
+     README) or loaded via Adobe Fonts before it will actually render.
+     Until then, "Superclarendon" (Apple's close visual match, bundled
+     with every Mac/iPhone/iPad) is used as a no-license-needed fallback,
+     then a generic slab serif for everyone else. */
+  --font-heading: "Clarendon", "Clarendon URW", "Clarendon Std", "Superclarendon", "Bookman Old Style", Georgia, "Times New Roman", serif;
+  --font-body:    "Clarendon", "Clarendon URW", "Clarendon Std", "Superclarendon", "Bookman Old Style", Georgia, "Times New Roman", serif;
 
   /* Layout */
   --max-width: 1120px;
@@ -227,12 +266,23 @@ a:hover { color: var(--color-primary-dark); }
 .hero {
   padding: 7rem 0 6rem;
   background:
-    radial-gradient(circle at 85% 20%, rgba(181, 87, 58, 0.12), transparent 45%),
-    radial-gradient(circle at 10% 90%, rgba(63, 78, 58, 0.10), transparent 40%),
+    radial-gradient(circle at 85% 20%, rgba(var(--color-primary-rgb), 0.12), transparent 45%),
+    radial-gradient(circle at 10% 90%, rgba(var(--color-secondary-rgb), 0.10), transparent 40%),
     var(--color-bg);
 }
 
 .hero-inner { max-width: 820px; }
+
+.hero-mark {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.hero-mark merkaba-mark {
+  border-radius: 50%;
+  padding: 1.5rem;
+}
 
 .hero-lead {
   font-size: 1.25rem;
@@ -324,7 +374,7 @@ a:hover { color: var(--color-primary-dark); }
   display: grid;
   place-items: center;
   border-radius: 50%;
-  background: rgba(181, 87, 58, 0.12);
+  background: rgba(var(--color-primary-rgb), 0.12);
   color: var(--color-primary);
   font-size: 1.4rem;
   margin-bottom: 1rem;
@@ -487,7 +537,7 @@ a:hover { color: var(--color-primary-dark); }
 
 .broker-card h3 { color: #fff; }
 
-.broker-card .check-list li::before { color: #E9A58B; }
+.broker-card .check-list li::before { color: var(--color-accent); }
 
 /* ==========================================================================
    FAQ (uses built-in <details>/<summary>, so no JavaScript needed)
@@ -544,7 +594,7 @@ a:hover { color: var(--color-primary-dark); }
 
 .contact-section h2 { color: #fff; }
 
-.contact-section .eyebrow { color: #F7D9CC; }
+.contact-section .eyebrow { color: var(--color-primary-dark); }
 
 .contact-methods {
   display: flex;
@@ -577,7 +627,11 @@ a:hover { color: var(--color-primary-dark); }
   word-break: break-word;
 }
 
-.contact-item a:hover { color: #F7D9CC; }
+/* Deep navy is unmistakably different from the white/ivory base link color
+   (17:1 contrast against it) while still holding up against the magenta
+   background (3.6:1) — the gold accent it replaced barely registered on
+   either count. */
+.contact-item a:hover { color: var(--color-primary-dark); }
 
 /* ==========================================================================
    Footer
